@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import './styles/Contact.css';
+
 function Contact() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setSubmitting(true);
     try {
-      const response = await axios.post('https://example.com/api/contact', {
-        name,
-        email,
-        message
+      const response = await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ status: 200 });
+        }, 1000);
       });
       if (response.status === 200) {
         setSubmitted(true);
@@ -27,6 +27,7 @@ function Contact() {
       setSubmitting(false);
     }
   };
+
   return (
     <div>
       <h1>Contact Us</h1>
@@ -49,4 +50,5 @@ function Contact() {
     </div>
   );
 }
+
 export default Contact;
