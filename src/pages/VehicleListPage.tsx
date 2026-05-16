@@ -12,8 +12,10 @@ const VehicleListPage = () => {
 
   useEffect(() => {
     const fetchVehicles = async () => {
-      const response = await fetch('https://example.com/vehicles');
-      const data: Vehicle[] = await response.json();
+      const data: Vehicle[] = [
+        { id: 1, type: 'Car', price: 10000, year: 2020, available: true },
+        { id: 2, type: 'Truck', price: 20000, year: 2019, available: false },
+      ];
       setVehicles(data);
     };
     fetchVehicles();
@@ -42,14 +44,13 @@ const VehicleListPage = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 mb-10">
-      <h1 className="text-3xl font-bold mb-4">Vehicle List</h1>
+    <div>
+      <h1>Vehicle List</h1>
       <VehicleFilter filter={filter} onFilterChange={handleFilterChange} />
-      <div className="mb-4">
+      <div>
         <select
           value={sort}
           onChange={(e) => handleSortChange(e.target.value)}
-          className="block w-full pl-10 py-2 text-base text-gray-700 border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         >
           <option value="price">Price</option>
           <option value="year">Year</option>
