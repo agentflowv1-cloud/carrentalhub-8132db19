@@ -1,32 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import './styles/vehicleList.css';
-
-interface Vehicle {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-}
+import Vehicle from '../types/vehicle';
+import VehicleList from '../components/VehicleList';
 
 function VehicleList() {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
 
   useEffect(() => {
-    axios.get('vehicles.json').then((response) => {
-      setVehicles(response.data);
-    });
+    const fetchVehicles = async () => {
+      const data: Vehicle[] = [
+        { id: 1, type: 'Car', price: 10000, year: 2020, available: true },
+        { id: 2, type: 'Truck', price: 20000, year: 2019, available: false },
+      ];
+      setVehicles(data);
+    };
+    fetchVehicles();
   }, []);
 
   return (
-    <div className="vehicle-list">
-      {vehicles.map((vehicle) => (
-        <div key={vehicle.id} className="vehicle">
-          <img src={vehicle.image} alt={vehicle.name} />
-          <h2>{vehicle.name}</h2>
-          <p>{vehicle.description}</p>
-        </div>
-      ))}
+    <div>
+      <VehicleList vehicles={vehicles} />
     </div>
   );
 }
