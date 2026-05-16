@@ -1,13 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
-import './styles/adminDashboard.css';
-
-interface Vehicle {
-  id: number;
-  name: string;
-  description: string;
-  image: string;
-}
 
 function AdminDashboard() {
   const [name, setName] = useState('');
@@ -16,15 +7,13 @@ function AdminDashboard() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const vehicle: Vehicle = {
+    const vehicle = {
       id: Date.now(),
       name,
       description,
       image,
     };
-    axios.post('vehicles.json', vehicle).then((response) => {
-      console.log(response);
-    });
+    console.log(vehicle);
   };
 
   return (
@@ -41,7 +30,7 @@ function AdminDashboard() {
         </label>
         <label>
           Image:
-          <input type="file" onChange={(event) => setImage(event.target.files![0].name)} />
+          <input type="text" value={image} onChange={(event) => setImage(event.target.value)} />
         </label>
         <button type="submit">Submit</button>
       </form>
